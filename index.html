@@ -108,11 +108,16 @@
 
     /* Pricing buttons */
     .pricing {
+      position: relative;
       display: flex;
       gap: 2rem;
       margin-top: 3rem;
       flex-wrap: wrap;
       justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 500px;
+      height: 200px;
     }
 
     .price-btn {
@@ -124,6 +129,9 @@
 
     .runaway {
       position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-120%, -50%);
     }
 
     .glow {
@@ -153,7 +161,7 @@
     <h1>ESPORTS GAMING CAFE</h1>
     <p>
       Where competitive gaming meets luxury.
-      A high-end, old-money inspired esports experience designed for champions.
+      A high-end, Modern inspired esports experience designed for champions.
       This Ramadan, elevate your nights with elite setups, calm ambience, and pure focus.
     </p>
     <button onclick="nextPage(2)">Enter the Experience</button>
@@ -164,10 +172,10 @@
     <div class="moon"></div>
     <h2>Your Experience</h2>
     <p>
-      • Ultra-high performance gaming PCs & consoles<br>
-      • Professional-grade monitors with high refresh rates<br>
-      • Premium chairs, silent keyboards & immersive headsets<br><br>
-      How did you enjoy the atmosphere? The calm Ramadan nights, the focus, the energy?
+      • Ultra-high performance gaming PCs & console<br>
+      • Professional-grade monitors with high refresh rates 180hz<br>
+      • Premium chairs, Responsive keyboards & immersive headsets<br><br>
+      How much you would enjoy the atmosphere? The calm Ramadan nights, the focus, the energy?
       Every detail is designed to make you feel elite.
     </p>
     <button onclick="nextPage(3)">Continue</button>
@@ -185,7 +193,7 @@
 
     <div class="pricing" id="pricingArea">
       <button class="price-btn runaway" id="btn150">150 / HOUR</button>
-      <button class="price-btn glow">200 / HOUR</button>
+      <button class="price-btn glow" id="btn200">200 / HOUR</button>
     </div>
 
     <footer>
@@ -200,25 +208,50 @@
     }
 
     const runawayBtn = document.getElementById('btn150');
+    const richBtn = document.getElementById('btn200');
     const area = document.getElementById('pricingArea');
+    let escaped = false;
 
     function moveButton() {
+      escaped = true;
       const areaRect = area.getBoundingClientRect();
       const btnRect = runawayBtn.getBoundingClientRect();
 
-      const maxX = areaRect.width - btnRect.width;
-      const maxY = areaRect.height - btnRect.height;
+      const centerX = areaRect.width / 2;
+      const centerY = areaRect.height / 2;
 
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
+      const offsetX = (Math.random() * 120) - 60;
+      const offsetY = (Math.random() * 80) - 40;
 
-      runawayBtn.style.left = x + 'px';
-      runawayBtn.style.top = y + 'px';
+      runawayBtn.style.left = centerX + offsetX + 'px';
+      runawayBtn.style.top = centerY + offsetY + 'px';
     }
 
     runawayBtn.addEventListener('mouseenter', moveButton);
     runawayBtn.addEventListener('touchstart', moveButton);
+
+    richBtn.addEventListener('click', () => {
+      if (!escaped) return;
+      const popup = document.createElement('div');
+      popup.innerHTML = "<h3>😎 Yeah… we knew you’re rich boiii</h3><p>Welcome to the elite Ramadan league.</p>";
+      popup.style.position = 'fixed';
+      popup.style.top = '50%';
+      popup.style.left = '50%';
+      popup.style.transform = 'translate(-50%, -50%)';
+      popup.style.background = '#0b0b0b';
+      popup.style.border = '2px solid #6a0dad';
+      popup.style.padding = '2rem 3rem';
+      popup.style.borderRadius = '16px';
+      popup.style.boxShadow = '0 0 30px rgba(138,43,226,0.9)';
+      popup.style.zIndex = '9999';
+      popup.style.animation = 'pulse 1.5s infinite';
+
+      document.body.appendChild(popup);
+
+      setTimeout(() => popup.remove(), 3500);
+    });
   </script>
 
 </body>
 </html>
+
