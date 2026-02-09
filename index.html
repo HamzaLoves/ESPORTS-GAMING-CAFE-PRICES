@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ESPORTS GAMING CAFE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #0b0b0b;
+      --white: #ffffff;
+      --purple: #6a0dad;
+      --purple-glow: 0 0 20px rgba(138,43,226,0.8);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top, #1a1025, var(--black));
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+      text-align: center;
+      position: relative;
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .hidden {
+      opacity: 0;
+      transform: translateY(40px);
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+
+    h1, h2 {
+      font-family: 'Cinzel', serif;
+      letter-spacing: 3px;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    p {
+      max-width: 800px;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      opacity: 0.9;
+    }
+
+    button {
+      margin-top: 2.5rem;
+      padding: 1rem 2.5rem;
+      font-size: 1rem;
+      border-radius: 50px;
+      border: 2px solid var(--purple);
+      background: transparent;
+      color: var(--white);
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+
+    button:hover {
+      background: var(--purple);
+      box-shadow: var(--purple-glow);
+      transform: translateY(-3px);
+    }
+
+    /* Ramadan vibe */
+    .moon {
+      position: absolute;
+      top: 10%;
+      right: 10%;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      box-shadow: -25px 0 0 0 var(--white);
+      opacity: 0.08;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* Pricing buttons */
+    .pricing {
+      display: flex;
+      gap: 2rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .price-btn {
+      padding: 1.2rem 3rem;
+      font-size: 1.1rem;
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .runaway {
+      position: absolute;
+    }
+
+    .glow {
+      background: var(--purple);
+      box-shadow: 0 0 25px rgba(138,43,226,0.9);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 15px rgba(138,43,226,0.6); }
+      50% { box-shadow: 0 0 35px rgba(138,43,226,1); }
+      100% { box-shadow: 0 0 15px rgba(138,43,226,0.6); }
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PAGE 1 -->
+  <section id="page1">
+    <div class="moon"></div>
+    <h1>ESPORTS GAMING CAFE</h1>
+    <p>
+      Where competitive gaming meets luxury.
+      A high-end, old-money inspired esports experience designed for champions.
+      This Ramadan, elevate your nights with elite setups, calm ambience, and pure focus.
+    </p>
+    <button onclick="nextPage(2)">Enter the Experience</button>
+  </section>
+
+  <!-- PAGE 2 -->
+  <section id="page2" class="hidden">
+    <div class="moon"></div>
+    <h2>Your Experience</h2>
+    <p>
+      • Ultra-high performance gaming PCs & consoles<br>
+      • Professional-grade monitors with high refresh rates<br>
+      • Premium chairs, silent keyboards & immersive headsets<br><br>
+      How did you enjoy the atmosphere? The calm Ramadan nights, the focus, the energy?
+      Every detail is designed to make you feel elite.
+    </p>
+    <button onclick="nextPage(3)">Continue</button>
+  </section>
+
+  <!-- PAGE 3 -->
+  <section id="page3" class="hidden">
+    <div class="moon"></div>
+    <h2>Ramadan Pricing Announcement</h2>
+    <p>
+      To maintain the highest quality experience during Ramadan,
+      we asked ourselves what pricing truly reflects the value.
+      Choose wisely.
+    </p>
+
+    <div class="pricing" id="pricingArea">
+      <button class="price-btn runaway" id="btn150">150 / HOUR</button>
+      <button class="price-btn glow">200 / HOUR</button>
+    </div>
+
+    <footer>
+      ESPORTS GAMING CAFE · Ramadan Nights · Elite Play
+    </footer>
+  </section>
+
+  <script>
+    function nextPage(page) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.add('hidden'));
+      document.getElementById('page' + page).classList.remove('hidden');
+    }
+
+    const runawayBtn = document.getElementById('btn150');
+    const area = document.getElementById('pricingArea');
+
+    function moveButton() {
+      const areaRect = area.getBoundingClientRect();
+      const btnRect = runawayBtn.getBoundingClientRect();
+
+      const maxX = areaRect.width - btnRect.width;
+      const maxY = areaRect.height - btnRect.height;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      runawayBtn.style.left = x + 'px';
+      runawayBtn.style.top = y + 'px';
+    }
+
+    runawayBtn.addEventListener('mouseenter', moveButton);
+    runawayBtn.addEventListener('touchstart', moveButton);
+  </script>
+
+</body>
+</html>
